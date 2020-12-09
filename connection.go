@@ -29,6 +29,7 @@ type Connection struct {
 	Username  string
 	Password  string
 	Interface string
+	Cipher    int
 }
 
 // RemoteIP returns the remote (bmc) IP address of the Connection

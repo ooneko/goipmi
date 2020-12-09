@@ -76,6 +76,10 @@ func (t *tool) options() []string {
 		"-I", intf,
 	}
 
+	if t.Cipher != 0 {
+		options = append(options, "-C", strconv.Itoa(t.Cipher))
+	}
+
 	if t.Port != 0 {
 		options = append(options, "-p", strconv.Itoa(t.Port))
 	}
