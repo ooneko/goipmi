@@ -82,6 +82,11 @@ const (
 	BootParamInitMbox      = 0x7
 )
 
+const (
+	StatusPowerOnString  string = "on"
+	StatusPowerOffString string = "off"
+)
+
 // ChassisStatusRequest per section 28.2
 type ChassisStatusRequest struct{}
 
@@ -187,7 +192,7 @@ func (r *ChassisStatusResponse) UnmarshalBinary(buf []byte) error {
 	}
 	r.CompletionCode = CompletionCode(buf[0])
 	r.PowerState = buf[1]
-	r.LastPowerEvent =  buf[2]
+	r.LastPowerEvent = buf[2]
 	r.State = buf[3]
 	if len(buf) > 4 {
 		r.FrontControlPanel = buf[4]

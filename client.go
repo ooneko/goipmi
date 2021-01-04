@@ -119,6 +119,27 @@ func (c *Client) Control(ctl ChassisControl) error {
 	return c.Send(r, &ChassisControlResponse{})
 }
 
+func (c *Client) GetPowerStatus() (string, error) {
+	req := &Request{
+		NetworkFunction: NetworkFunctionChassis,
+		Command:         CommandChassisStatus,
+		Data:            ChassisStatusRequest{},
+	}
+
+	resp := &ChassisStatusResponse{}
+	if err := c.Send(req, resp); err != nil {
+		return "", err
+	}
+	var status string
+	if resp.PowerState&1 == 0 {
+		status = StatusPowerOffString
+	} else {
+		status = StatusPowerOnString
+	}
+
+	return status, nil
+}
+
 func (c *Client) GetUserName(userID byte) (*GetUserNameResponse, error) {
 	req := &Request{
 		NetworkFunctionApp,
